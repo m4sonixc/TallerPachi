@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PachiTaller"
+             x:Class="PachiTaller.Turnos"
+             Title="Gestión de Turnos"
+             BackgroundColor="#EAEAEA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- BÓTON VOLVER AL INICIO SUPERIOR -->
+            <Button Text="← Volver a Turnos"
+         Clicked="OnVolverInicioClicked"
+         BackgroundColor="Transparent"
+         TextColor="#512BD4"
+         FontSize="14"
+         FontAttributes="Bold"
+         HorizontalOptions="Start" />
+
+
+            <!-- PANEL DEL CLIENTE (SOLICITAR TURNO) -->
+            <VerticalStackLayout x:Name="PanelUsuario" IsVisible="True" Spacing="15">
+                <Border BackgroundColor="White" StrokeShape="RoundRectangle 12" Padding="20" Stroke="#E0E0E0">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Solicitar un Turno" FontSize="22" FontAttributes="Bold" TextColor="#2B2B5C" />
+                        <Label Text="Complete los datos de su vehículo para agendar una cita:" FontSize="13" TextColor="#757575" />
+
+                        <!-- Nombre Completo (Autorellenado) -->
+                        <Label Text="Su Nombre Completo" FontSize="14" FontAttributes="Bold" TextColor="#2B2B5C" />
+                        <Entry x:Name="TxtNombreCliente" 
+                               Placeholder="Ingrese su nombre" 
+                               IsReadOnly="True" 
+                               IsEnabled="False"
+                               BackgroundColor="#F0F2F5" 
+                               TextColor="#333333" />
+
+                        <!-- Teléfono de Contacto (Autorellenado) -->
+                        <Label Text="Teléfono de Contacto" FontSize="14" FontAttributes="Bold" TextColor="#2B2B5C" />
+                        <Entry x:Name="TxtTelefonoCliente" 
+                               Placeholder="Ingrese su teléfono" 
+                               Keyboard="Telephone" 
+                               IsReadOnly="True" 
+                               IsEnabled="False"
+                               BackgroundColor="#F0F2F5" 
+                               TextColor="#333333" />
+
+                        <!-- Modelo y Patente del Vehículo -->
+                        <Label Text="Modelo y Patente del Vehículo" FontSize="14" FontAttributes="Bold" TextColor="#2B2B5C" />
+                        <Entry x:Name="TxtVehiculo" 
+                               Placeholder="Ej. Toyota Corolla - AB123CD" 
+                               BackgroundColor="White" 
+                               TextColor="#333333" />
+
+                        <!-- Motivo / Servicio Requerido -->
+                        <Label Text="Motivo / Servicio Requerido" FontSize="14" FontAttributes="Bold" TextColor="#2B2B5C" />
+                        <Editor x:Name="TxtMotivo" 
+                                Placeholder="Describa la falla o servicio (ej: cambio de aceite, frenos...)" 
+                                HeightRequest="100" 
+                                BackgroundColor="White" 
+                                TextColor="#333333" />
+
+                        <Button Text="Enviar Solicitud de Turno" 
+                                Clicked="OnGuardarTurnoClicked" 
+                                BackgroundColor="#512BD4" 
+                                TextColor="White" 
+                                FontAttributes="Bold" 
+                                CornerRadius="10" 
+                                Margin="0,10,0,0" />
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- PANEL DEL ADMINISTRADOR (MANTIENE TU ESTRUCTURA ORIGINAL) -->
+            <VerticalStackLayout x:Name="PanelAdmin" IsVisible="False" Spacing="15">
+                <Label Text="Panel de Control - Turnos Activos" FontSize="20" FontAttributes="Bold" TextColor="#2B2B5C" />
+
+                <CollectionView x:Name="ListaTurnosView" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="local:TurnoModel">
+                            <Border Style="{StaticResource CardBorderStyle}"
+        Margin="0,0,0,15"
+        Padding="15"
+        BackgroundColor="#F3F4F6"
+        StrokeThickness="1"
+        Stroke="#4A5568"
+        StrokeShape="RoundRectangle 12">
+
+                                <VerticalStackLayout Spacing="10">
+
+                                    <!-- Encabezado: Vehículo (Visualmente idéntico al cliente) -->
+                                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                        <Label Text="" FontSize="18" VerticalOptions="Center"/>
+                                        <Label Text="Vehículo:" FontAttributes="Bold" FontSize="16" TextColor="#1E293B" VerticalOptions="Center"/>
+                                        <Label Text="{Binding Vehiculo}" FontAttributes="Bold" FontSize="16" TextColor="#5B21B6" VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Línea divisora (HorizontalOptions="Fill" corregido) -->
+                                    <BoxView HeightRequest="1" Color="#CBD5E1" HorizontalOptions="Fill"/>
+
+                                    <!-- Información del Cliente (Vista Admin) -->
+                                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="4" ColumnSpacing="6">
+                                        <Label Grid.Row="0" Grid.Column="0" Text="Cliente:" FontAttributes="Bold" TextColor="#475569"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding NombreCliente}" TextColor="#1E293B"/>
+
+                                        <Label Grid.Row="1" Grid.Column="0" Text="Teléfono:" FontAttributes="Bold" TextColor="#475569"/>
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Telefono}" TextColor="#1E293B"/>
+
+                                        <Label Grid.Row="2" Grid.Column="0" Text="Motivo de Ingreso:" FontAttributes="Bold" TextColor="#475569"/>
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Motivo}" TextColor="#1E293B"/>
+
+                                        <Label Grid.Row="3" Grid.Column="0" Text="Fecha Ingreso:" FontAttributes="Bold" TextColor="#475569"/>
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding FechaTurno}" TextColor="#1E293B"/>
+                                    </Grid>
+
+                                    <!-- Diagnóstico del Taller -->
+                                    <VerticalStackLayout Spacing="4">
+                                        <HorizontalStackLayout Spacing="6">
+                                            <Label Text="" FontSize="14"/>
+                                            <Label Text="Diagnóstico del Taller:" FontAttributes="Bold" TextColor="#1E293B"/>
+                                        </HorizontalStackLayout>
+
+                                        <Border BackgroundColor="#E2E8F0" Padding="10" StrokeShape="RoundRectangle 8" StrokeThickness="0">
+                                            <Label Text="{Binding Diagnostico}" 
+                       FontAttributes="Italic" 
+                       TextColor="#475569"/>
+                                        </Border>
+                                    </VerticalStackLayout>
+
+                                    <!-- Estimación de Entrega -->
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Label Text="" FontSize="14"/>
+                                        <Label Text="Estimación de Entrega:" FontAttributes="Bold" TextColor="#1E293B"/>
+                                        <Label Text="{Binding FechaEstimadaTermino}" TextColor="#5B21B6" FontAttributes="Bold"/>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Estado del Vehículo -->
+                                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                        <Label Text="Estado del Vehículo:" FontAttributes="Bold" TextColor="#1E293B" VerticalOptions="Center"/>
+                                        <Border BackgroundColor="#DDD6FE" Padding="12,4" StrokeShape="RoundRectangle 6" StrokeThickness="1" Stroke="#C4B5FD">
+                                            <Label Text="{Binding Estado}" TextColor="#5B21B6" FontAttributes="Bold"/>
+                                        </Border>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Presupuesto Total -->
+                                    <Border BackgroundColor="#DCFCE7" 
+                Stroke="#86EFAC" 
+                StrokeThickness="1" 
+                StrokeShape="RoundRectangle 8" 
+                Padding="12,8">
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <Label Grid.Column="0" Text="Presupuesto Total:" TextColor="#166534" FontAttributes="Bold" VerticalOptions="Center"/>
+                                            <Label Grid.Column="1" Text="{Binding CostoTotal, StringFormat='${0:N0}'}" TextColor="#166534" FontAttributes="Bold" FontSize="16" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Botón de Edición/Asignación de Presupuesto para Admin -->
+                                    <Button Text="Editar / Asignar Presupuesto" 
+                BackgroundColor="#4C1D95" 
+                TextColor="White" 
+                CornerRadius="8" 
+                Margin="0,5,0,0"
+                Clicked="OnEditarTurnoClicked"
+                CommandParameter="{Binding .}"/>
+
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

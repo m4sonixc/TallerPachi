@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PachiTaller.LoginPage"
+             Title="Iniciar Sesión"
+             BackgroundColor="#F4F6F9"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24, 30, 24, 40" Spacing="15" VerticalOptions="Center">
+
+            <!-- LOGO: Marco redondeado sin recortes oscuros -->
+            <Border Stroke="#1B2A4A" 
+                    StrokeThickness="2" 
+                    BackgroundColor="#1B2A4A" 
+                    HeightRequest="150" 
+                    WidthRequest="220" 
+                    HorizontalOptions="Center" 
+                    Padding="0" 
+                    Margin="0,15,0,5">
+                <Border.StrokeShape>
+                    <!-- Aumentamos CornerRadius a 28 para hacerlo notablemente más redondeado -->
+                    <RoundRectangle CornerRadius="28" />
+                </Border.StrokeShape>
+                <!-- Usamos Grid con IsClippedToBounds para obligar a la imagen a heredar el redondeo de 28 -->
+                <Grid IsClippedToBounds="True">
+                    <!-- Aspect="AspectFill" hace que la textura y el fondo oscuro rellenen cada rincón de la tarjeta -->
+                    <Image Source="logopachi.png" 
+                   Aspect="AspectFill" 
+                   HorizontalOptions="Fill" 
+                   VerticalOptions="Fill" />    
+                </Grid>
+            </Border>
+
+            <!-- TÍTULOS DE BIENVENIDA -->
+            <VerticalStackLayout Spacing="4" HorizontalOptions="Center" Margin="0,0,0,5">
+                <Label Text="Pachi Garage" 
+                       FontSize="28" 
+                       FontAttributes="Bold" 
+                       TextColor="#1B2A4A" 
+                       HorizontalOptions="Center" />
+
+                <Label Text="Gestión Mecánica &amp; Servicios" 
+                       FontSize="15" 
+                       TextColor="#512BD4" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- FORMULARIO DE ACCESO -->
+            <VerticalStackLayout Spacing="12">
+
+                <!-- Usuario -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Usuario o Correo" 
+                           FontAttributes="Bold" 
+                           TextColor="#1B2A4A" 
+                           FontSize="14" />
+                    <Border Stroke="#1B2A4A" StrokeThickness="1" BackgroundColor="White" Padding="12,0" HeightRequest="45">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Entry x:Name="TxtUsuario" 
+                               Placeholder="Ingrese su usuario..." 
+                               TextColor="Black" 
+                               PlaceholderColor="Gray"
+                               VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Contraseña -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Contraseña" 
+                           FontAttributes="Bold" 
+                           TextColor="#1B2A4A" 
+                           FontSize="14" />
+                    <Border Stroke="#1B2A4A" StrokeThickness="1" BackgroundColor="White" Padding="12,0" HeightRequest="45">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <Entry x:Name="TxtPassword" 
+                               IsPassword="True" 
+                               Placeholder="Ingrese su contraseña..." 
+                               TextColor="Black" 
+                               PlaceholderColor="Gray"
+                               VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Botón de Iniciar Sesión -->
+                <Button Text="Iniciar Sesión" 
+                        Clicked="OnIngresarClicked" 
+                        BackgroundColor="#512BD4" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                        CornerRadius="8" 
+                        HeightRequest="48" 
+                        Margin="0,10,0,0" />
+            </VerticalStackLayout>
+
+            <!-- ENLACE DE REGISTRO -->
+            <Button Clicked="OnRegistrarseClicked" 
+                    BackgroundColor="Transparent" 
+                    TextColor="#512BD4" 
+                    FontAttributes="Bold" 
+                    FontSize="13" 
+                    HorizontalOptions="Center"
+                    Margin="0,10,0,10"
+                    Text="¿No tienes una cuenta? Regístrate aquí" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
