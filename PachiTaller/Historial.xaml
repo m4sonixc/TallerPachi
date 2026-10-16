@@ -83,6 +83,11 @@
                                     <Label Text="Motivo de Ingreso:" FontAttributes="Bold" TextColor="#1B2A4A" />
                                     <Label Text="{Binding Motivo}" TextColor="#374151" />
                                 </HorizontalStackLayout>
+                                
+                                <!--  AQUÍ SE AGREGA LA FECHA DEL PRÓXIMO SERVICE -->
+                                <Label Grid.Row="4" Grid.Column="0" Text="Próximo Service:" FontAttributes="Bold" TextColor="#475569"/>
+                                <Label Grid.Row="4" Grid.Column="1" Text="{Binding ProximoService, TargetNullValue='Sin definir'}" TextColor="#059669" FontAttributes="Bold"/>
+                               
 
                                 <!-- Diagnóstico técnico realizado -->
                                 <VerticalStackLayout Spacing="3" Margin="0,3,0,0">
