@@ -116,6 +116,17 @@
                                                VerticalOptions="Center" />
                                     </Grid>
                                 </Border>
+                                <HorizontalStackLayout Spacing="6" Margin="0,4,0,0">
+                                    <Label Text="📅" FontSize="14" VerticalOptions="Center"/>
+                                    <Label Text="Próximo Service:" 
+           FontAttributes="Bold" 
+           TextColor="#1E293B" 
+           VerticalOptions="Center"/>
+                                    <Label Text="{Binding ProximoService, TargetNullValue='Sin definir'}" 
+           TextColor="#059669" 
+           FontAttributes="Bold" 
+           VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
 
                             </VerticalStackLayout>
                         </Border>

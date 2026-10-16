@@ -11,7 +11,7 @@
 
             <!-- Botón de retorno -->
             <Button Text="← Volver a Turnos"
-                    Clicked="OnVolverClicked"
+                    Clicked="OnVolverTurnosClicked"
                     BackgroundColor="Transparent"
                     TextColor="#512BD4"
                     FontSize="14"
@@ -132,6 +132,15 @@
                                        HorizontalOptions="Start" />
                             </VerticalStackLayout>
                         </Border>
+                        <!-- Sección: Fecha de Próximo Service / Revisión -->
+                        <VerticalStackLayout x:Name="LayoutProximoService" Spacing="5" Margin="0,10,0,0">
+                            <Label Text="📅 Fecha de Próximo Service / Revisión:" 
+           FontAttributes="Bold" 
+           TextColor="#1E293B" />
+                            <DatePicker x:Name="PickerProximoService" 
+                Format="dd/MM/yyyy" 
+                TextColor="#1E293B" />
+                        </VerticalStackLayout>
 
                     </VerticalStackLayout>
                 </Border>

@@ -144,7 +144,7 @@ namespace PachiTaller
             return false;
         }
 
-        public async Task<bool> ActualizarTurnoCompletoAsync(int turnoId, string nuevoEstado, string fechaEstimada, string diagnostico, decimal manoObra)
+        public async Task<bool> ActualizarTurnoCompletoAsync(int turnoId, string nuevoEstado, string fechaEstimada, string diagnostico, decimal manoObra, string proximoService)
         {
             var db = await GetDatabaseConnectionAsync();
             var turno = await db.Table<TurnoModel>().Where(t => t.Id == turnoId).FirstOrDefaultAsync();
@@ -155,6 +155,7 @@ namespace PachiTaller
                 turno.FechaEstimadaTermino = string.IsNullOrWhiteSpace(fechaEstimada) ? "Sin definir" : fechaEstimada;
                 turno.Diagnostico = string.IsNullOrWhiteSpace(diagnostico) ? "Sin diagnóstico" : diagnostico;
                 turno.CostoManoObra = manoObra;
+                turno.ProximoService = string.IsNullOrWhiteSpace(proximoService) ? "Sin definir" : proximoService;
 
                 int filasAfectadas = await db.UpdateAsync(turno);
                 return filasAfectadas > 0;

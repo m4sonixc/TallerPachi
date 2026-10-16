@@ -131,7 +131,10 @@ public partial class EditarTurnoPage : ContentPage
         decimal total = manoObra + repuestos;
         LblCostoTotal.Text = $"${total:N0}";
     }
-
+    private async void OnVolverTurnosClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
     private async void OnGuardarClicked(object sender, EventArgs e)
     {
         try
@@ -140,8 +143,13 @@ public partial class EditarTurnoPage : ContentPage
 
             string nuevoEstado = PickerEstado.SelectedItem?.ToString() ?? "Pendiente";
             string nuevoDiagnostico = TxtDiagnostico.Text?.Trim() ?? "Sin diagnóstico";
+
             DateTime fechaSeleccionada = PickerFechaEntrega.Date ?? DateTime.Today;
             string nuevaFechaEntrega = fechaSeleccionada.ToString("dd/MM/yyyy");
+
+            // ✅ FORMATO CORRECTO PARA LA FECHA DE PRÓXIMO SERVICE
+            DateTime fechaProximoService = PickerProximoService.Date ?? DateTime.Today.AddMonths(6);
+            string proximoServiceText = fechaProximoService.ToString("dd/MM/yyyy");
 
             decimal.TryParse(TxtManoObra.Text, out decimal manoObra);
 
@@ -150,7 +158,8 @@ public partial class EditarTurnoPage : ContentPage
                 nuevoEstado,
                 nuevaFechaEntrega,
                 string.IsNullOrWhiteSpace(nuevoDiagnostico) ? "Sin diagnóstico" : nuevoDiagnostico,
-                manoObra
+                manoObra,
+                proximoServiceText
             );
 
             if (exito)
@@ -167,10 +176,6 @@ public partial class EditarTurnoPage : ContentPage
         {
             await DisplayAlertAsync("Error", $"Ocurrió un problema: {ex.Message}", "OK");
         }
-    }
 
-    private async void OnVolverClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
     }
 }

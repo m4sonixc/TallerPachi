@@ -18,6 +18,9 @@ namespace PachiTaller
         public string FechaEstimadaTermino { get; set; } = "Sin definir";
         public string Diagnostico { get; set; } = "Pendiente de revisión en taller";
 
+        // Nuevo campo para el próximo service / revisión
+        public string ProximoService { get; set; } = "Sin definir";
+
         // --- Nuevos campos de Costos y Repuestos ---
         public decimal CostoManoObra { get; set; } = 0;
         public decimal CostoRepuestos { get; set; } = 0;
