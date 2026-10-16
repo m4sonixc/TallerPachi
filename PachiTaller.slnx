@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="PachiTaller/PachiTaller.csproj" />
+  <Project Path="PachiTaller/PachiTaller.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

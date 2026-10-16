@@ -17,7 +17,11 @@
                     FontAttributes="Bold"
                     HorizontalOptions="Start" />
 
-            <Label Text="Bienvenido, Cliente" FontSize="24" FontAttributes="Bold" TextColor="#1B2A4A" />
+            <Label x:Name="LblBienvenida" 
+               Text="Bienvenido" 
+               FontSize="20" 
+               FontAttributes="Bold" 
+               TextColor="#1E293B" />
             <Label Text="Seleccione una opción para su vehículo:" FontSize="14" TextColor="Gray" />
 
             <!-- Opción 1: Registrar Turno -->

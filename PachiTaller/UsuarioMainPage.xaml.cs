@@ -7,6 +7,17 @@ namespace PachiTaller
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Obtenemos el nombre del usuario autenticado en App.UsuarioSesionActual
+            string nombreReal = App.UsuarioSesionActual?.Nombre ?? "Usuario";
+
+            // Actualizamos la etiqueta con el nombre del usuario
+            LblBienvenida.Text = $"Bienvenido, {nombreReal}";
+        }
+
         private async void OnCerrarSesionClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Login");
@@ -19,9 +30,9 @@ namespace PachiTaller
 
         private async void OnEstadoTurnoClicked(object sender, EventArgs e)
         {
-            // Redirige directamente a la pantalla con las tarjetas/cajas de turnos
             await Shell.Current.GoToAsync("//EstadoTurno");
         }
+
         private async void OnHistorialTurnosClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Historial");

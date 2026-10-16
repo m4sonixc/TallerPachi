@@ -37,7 +37,7 @@ namespace PachiTaller
 
             if (resultado)
             {
-                await DisplayAlertAsync("Éxito", "Usuario guardado en SQLite con éxito. Ya puedes iniciar sesión.", "OK");
+                await DisplayAlertAsync("Éxito", "Ya puedes iniciar sesión.", "OK");
                 await Shell.Current.GoToAsync("//Login");
             }
             else
