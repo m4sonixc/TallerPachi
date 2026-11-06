@@ -19,26 +19,24 @@ namespace PachiTaller
             _httpClient = new HttpClient(handler) { BaseAddress = new Uri(BaseUrl) };
         }
 
-        public async Task<List<TurnoModel>> ObtenerTurnosAsync()
+        public async Task<List<TurnoModel>> ObtenerHistorialAsync(string rolUsuario, string nombreUsuario)
         {
             try
             {
-                var response = await _httpClient.GetAsync("turnos");
+                // Llamamos al nuevo endpoint enviando el rol y el nombre
+                var url = $"turnos/historial?rol={rolUsuario}&nombre={Uri.EscapeDataString(nombreUsuario)}";
+                var response = await _httpClient.GetAsync(url);
+
                 if (response.IsSuccessStatusCode)
                 {
                     var opciones = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                     return await response.Content.ReadFromJsonAsync<List<TurnoModel>>(opciones) ?? new List<TurnoModel>();
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine($"Error HTTP: {response.StatusCode}");
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error al conectar a la API: {ex.Message}");
             }
-
             return new List<TurnoModel>();
         }
     }
