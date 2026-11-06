@@ -13,18 +13,24 @@ public partial class Historial : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await CargarHistorialAsync();
+        await CargarHistorialDesdeApi();
     }
 
-    private async Task CargarHistorialAsync()
+    private async Task CargarHistorialDesdeApi()
     {
         try
         {
+            // Mantenemos las variables de sesión (se usarán en futuros pasos para filtrar en la API)
             string nombreUsuario = App.UsuarioSesionActual?.Nombre ?? "";
             string rolUsuario = App.RolSesionActual ?? "Cliente";
 
-            var historial = await _databaseService.ObtenerHistorialTurnosAsync(nombreUsuario, rolUsuario);
+            // 1. Instanciamos el nuevo servicio que conecta a la API
+            var apiService = new TurnosApiService();
 
+            // 2. Obtenemos los datos desde el servidor (por ahora traerá la lista de prueba)
+            var historial = await apiService.ObtenerTurnosAsync();
+
+            // 3. Actualizamos la vista visual de la pantalla
             ListaHistorialView.ItemsSource = null;
             ListaHistorialView.ItemsSource = historial;
         }
